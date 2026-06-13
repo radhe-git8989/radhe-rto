@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard';
 import Form from './components/Form';
 import Notification from './components/Notification';
 import RenewModal from './components/RenewModal';
+import Login from './components/Login';
 
 interface Policy {
   sr_no: number;
@@ -18,6 +19,7 @@ interface Policy {
 }
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [policies, setPolicies] = useState<Policy[]>([]);
   const [loading, setLoading] = useState(true);
   const [editPolicy, setEditPolicy] = useState<Policy | null>(null);
@@ -56,8 +58,10 @@ function App() {
   };
 
   useEffect(() => {
-    fetchPolicies();
-  }, []);
+    if (isLoggedIn) {
+      fetchPolicies();
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
     if (editPolicy) {
@@ -65,10 +69,18 @@ function App() {
     }
   }, [editPolicy]);
 
+  if (!isLoggedIn) {
+    return <Login onLogin={setIsLoggedIn} />;
+  }
+
   return (
     <div className="app-container">
-      <header>
+      <header className="app-header">
         <h1>RADHE RTO</h1>
+        <div className="header-user-actions">
+          <span className="user-info">User: <strong>ravi</strong></span>
+          <button className="btn-logout" onClick={() => setIsLoggedIn(false)}>Logout</button>
+        </div>
       </header>
       
       <Notification policies={policies} />
