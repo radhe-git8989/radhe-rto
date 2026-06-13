@@ -10,6 +10,7 @@ interface Policy {
   customer_name: string;
   phone_number: string;
   vehicle_no: string;
+  vehicle_type: string;
   insurance_company: string;
   issue_date: string;
   price: number;
@@ -25,7 +26,7 @@ function App() {
 
   const fetchPolicies = async () => {
     try {
-      const response = await fetch('http://10.69.18.96:5000/api/policies');
+      const response = await fetch('http://localhost:5000/api/policies');
       const data = await response.json();
       setPolicies(data);
       setLoading(false);
@@ -40,7 +41,7 @@ function App() {
   const handleDelete = async (sr_no: number) => {
     if (window.confirm('Are you sure you want to delete this policy?')) {
       try {
-        const response = await fetch(`http://10.69.18.96:5000/api/policies/${sr_no}`, {
+        const response = await fetch(`http://localhost:5000/api/policies/${sr_no}`, {
           method: 'DELETE',
         });
         if (response.ok) {

@@ -26,7 +26,7 @@ const Form: React.FC<FormProps> = ({ onPolicyAdded, editPolicy, onCancelEdit, is
     vehicle_no: '',
     vehicle_type: 'Car',
     insurance_company: '',
-    issue_date: '', // Displayed as DD/MM/YYYY
+    issue_date: '',
     price: '',
   });
 
@@ -106,7 +106,6 @@ const Form: React.FC<FormProps> = ({ onPolicyAdded, editPolicy, onCancelEdit, is
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     const backendDate = toBackendDate(formData.issue_date);
     
     if (!/^\d{2}\/\d{2}\/\d{4}$/.test(formData.issue_date)) {
@@ -121,8 +120,8 @@ const Form: React.FC<FormProps> = ({ onPolicyAdded, editPolicy, onCancelEdit, is
 
     try {
       const url = editPolicy 
-        ? `http://10.69.18.96:5000/api/policies/${editPolicy.sr_no}`
-        : 'http://10.69.18.96:5000/api/policies';
+        ? `http://localhost:5000/api/policies/${editPolicy.sr_no}`
+        : 'http://localhost:5000/api/policies';
       
       const method = editPolicy ? 'PUT' : 'POST';
 
@@ -139,17 +138,6 @@ const Form: React.FC<FormProps> = ({ onPolicyAdded, editPolicy, onCancelEdit, is
 
       if (response.ok) {
         alert(editPolicy ? 'Policy updated successfully!' : 'Policy added successfully!');
-        if (!editPolicy) {
-          setFormData({
-            customer_name: '',
-            phone_number: '+91 ',
-            vehicle_no: '',
-            vehicle_type: 'Car',
-            insurance_company: '',
-            issue_date: '',
-            price: '',
-          });
-        }
         onPolicyAdded();
         onClose();
       } else {
@@ -171,82 +159,34 @@ const Form: React.FC<FormProps> = ({ onPolicyAdded, editPolicy, onCancelEdit, is
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Customer Name:</label>
-            <input 
-              type="text" 
-              name="customer_name" 
-              value={formData.customer_name} 
-              onChange={handleChange} 
-              required 
-            />
+            <input type="text" name="customer_name" value={formData.customer_name} onChange={handleChange} required />
           </div>
           <div className="form-group">
             <label>Phone Number:</label>
-            <input 
-              type="text" 
-              name="phone_number" 
-              value={formData.phone_number} 
-              onChange={handleChange} 
-              placeholder="+91 XXXXX XXXXX"
-              maxLength={15}
-              required
-            />
+            <input type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} placeholder="+91 XXXXX XXXXX" maxLength={15} required />
           </div>
           <div className="form-group">
             <label>Vehicle No:</label>
-            <input 
-              type="text" 
-              name="vehicle_no" 
-              value={formData.vehicle_no} 
-              onChange={handleChange} 
-              placeholder="GJ-01-AB-1234"
-              maxLength={13}
-              required 
-            />
+            <input type="text" name="vehicle_no" value={formData.vehicle_no} onChange={handleChange} placeholder="GJ-01-AB-1234" maxLength={13} required />
           </div>
           <div className="form-group">
             <label>Vehicle Type:</label>
-            <select 
-              name="vehicle_type" 
-              value={formData.vehicle_type} 
-              onChange={handleChange}
-              className="form-select"
-              required
-            >
+            <select name="vehicle_type" value={formData.vehicle_type} onChange={handleChange} className="form-select" required>
               <option value="Car">Car</option>
               <option value="Bike">Bike</option>
             </select>
           </div>
           <div className="form-group">
             <label>Insurance Company:</label>
-            <input 
-              type="text" 
-              name="insurance_company" 
-              value={formData.insurance_company} 
-              onChange={handleChange} 
-              required 
-            />
+            <input type="text" name="insurance_company" value={formData.insurance_company} onChange={handleChange} required />
           </div>
           <div className="form-group">
             <label>Issue Date (DD/MM/YYYY):</label>
-            <input 
-              type="text" 
-              name="issue_date" 
-              value={formData.issue_date} 
-              onChange={handleChange} 
-              placeholder="DD/MM/YYYY"
-              maxLength={10}
-              required 
-            />
+            <input type="text" name="issue_date" value={formData.issue_date} onChange={handleChange} placeholder="DD/MM/YYYY" maxLength={10} required />
           </div>
           <div className="form-group">
             <label>Price:</label>
-            <input 
-              type="number" 
-              name="price" 
-              value={formData.price} 
-              onChange={handleChange} 
-              required 
-            />
+            <input type="number" name="price" value={formData.price} onChange={handleChange} required />
           </div>
           <div className="modal-actions">
             <button type="submit">{editPolicy ? 'Update Policy' : 'Add Policy'}</button>

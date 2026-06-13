@@ -118,19 +118,12 @@ main {
   font-weight: bold;
   border: none;
   cursor: pointer;
-  transition: all 0.3s;
-}
-
-.export-btn:hover {
-  background-color: #218838;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .table-wrapper {
   overflow-x: auto;
   overflow-y: auto;
-  max-height: 500px; /* Approximately 8-10 rows */
+  max-height: 500px;
   border: 1px solid #0056b3;
   border-radius: 8px;
   width: 100%;
@@ -146,23 +139,10 @@ thead th {
   position: sticky;
   top: 0;
   z-index: 10;
-}
-
-th {
   background-color: #0056b3;
   color: white;
   padding: 12px 10px;
   text-align: left;
-  border-right: 1px solid rgba(255,255,255,0.2);
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  white-space: nowrap;
-}
-
-th:last-child {
-  border-right: none;
-  text-align: center;
 }
 
 td {
@@ -173,164 +153,38 @@ td {
   font-size: 0.9rem;
 }
 
-td:last-child {
-  border-right: none;
-  text-align: center;
-}
+tr.expiring-soon { background-color: #ff3333 !important; color: white !important; }
+tr.expiring-soon td { color: white !important; font-weight: bold; }
 
-tr.expiring-soon {
-  background-color: #ff3333 !important;
-  color: white !important;
-}
-
-tr.expiring-soon td {
-  color: white !important;
-  font-weight: bold;
-}
-
-tr:nth-child(even):not(.expiring-soon) {
-  background-color: #f8f9fa;
-}
-
-tr:hover:not(.expiring-soon) {
-  background-color: #e9ecef;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-}
-
+.action-buttons { display: flex; gap: 8px; justify-content: center; }
 .renew-btn, .edit-btn, .delete-btn {
-  padding: 6px 12px;
-  font-size: 0.85rem;
-  width: auto;
-  flex: none;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  color: white;
+  padding: 6px 12px; font-size: 0.85rem; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; color: white;
 }
-
 .renew-btn { background-color: #ffc107; color: #333; }
 .edit-btn { background-color: #28a745; }
 .delete-btn { background-color: #dc3545; }
 
-/* Floating Action Button */
 .fab {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 60px;
-  height: 60px;
-  background-color: #007bff;
-  color: white;
-  border-radius: 50%;
-  font-size: 35px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  transition: all 0.3s;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #007bff; color: white;
+  border-radius: 50%; font-size: 35px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-.fab:hover {
-  background-color: #0056b3;
-  transform: scale(1.1) rotate(90deg);
-}
-
-/* Modal Styling */
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(5px);
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.75);
+  display: flex; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(5px);
 }
 
 .modal-content {
-  background: white;
-  padding: 30px;
-  border-radius: 15px;
-  width: 450px;
-  max-width: 90%;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  background: white; padding: 30px; border-radius: 15px; width: 450px; max-width: 90%;
 }
 
-.form-group {
-  margin-bottom: 15px;
-}
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+.form-group input, .form-select { width: 100%; padding: 10px; border: 2px solid #eee; border-radius: 8px; }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
+.type-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
+.type-badge.car { background-color: #007bff; color: white; }
+.type-badge.bike { background-color: #6f42c1; color: white; }
 
-.form-group input, .form-select {
-  width: 100%;
-  padding: 10px;
-  border: 2px solid #eee;
-  border-radius: 8px;
-  box-sizing: border-box;
-  font-size: 1rem;
-}
-
-.form-select {
-  background-color: white;
-  cursor: pointer;
-}
-
-.type-badge {
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.type-badge.car {
-  background-color: #007bff;
-  color: white;
-}
-
-.type-badge.bike {
-  background-color: #6f42c1;
-  color: white;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 15px;
-  margin-top: 25px;
-}
-
-.modal-actions button {
-  flex: 1;
-  padding: 12px;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-}
-
-.modal-actions button[type="submit"] {
-  background-color: #007bff;
-  color: white;
-}
-
-.modal-actions .cancel-btn {
-  background-color: #6c757d;
-  color: white;
-}
+.modal-actions { display: flex; gap: 15px; margin-top: 25px; }
+.modal-actions button { flex: 1; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; }

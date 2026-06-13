@@ -19,10 +19,7 @@ interface RenewModalProps {
 
 const RenewModal: React.FC<RenewModalProps> = ({ policy, onClose, onRenewSuccess }) => {
   const today = new Date();
-  const day = String(today.getDate()).padStart(2, '0');
-  const month = String(today.getMonth() + 1).padStart(2, '0');
-  const year = today.getFullYear();
-  const formattedToday = `${day}/${month}/${year}`;
+  const formattedToday = `${String(today.getDate()).padStart(2, '0')}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}`;
 
   const [formData, setFormData] = useState({
     customer_name: policy.customer_name,
@@ -30,7 +27,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ policy, onClose, onRenewSuccess
     vehicle_no: policy.vehicle_no,
     vehicle_type: policy.vehicle_type || 'Car',
     insurance_company: policy.insurance_company,
-    issue_date: formattedToday, // Displayed as DD/MM/YYYY
+    issue_date: formattedToday,
     price: '',
   });
 
@@ -78,19 +75,13 @@ const RenewModal: React.FC<RenewModalProps> = ({ policy, onClose, onRenewSuccess
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!/^\d{2}\/\d{2}\/\d{4}$/.test(formData.issue_date)) {
       alert('Please enter date in DD/MM/YYYY format');
       return;
     }
 
-    if (formData.phone_number.length < 15) {
-      alert('Please enter a valid 10-digit phone number');
-      return;
-    }
-
     try {
-      const response = await fetch(`http://10.69.18.96:5000/api/policies/${policy.sr_no}`, {
+      const response = await fetch(`http://localhost:5000/api/policies/${policy.sr_no}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -118,40 +109,19 @@ const RenewModal: React.FC<RenewModalProps> = ({ policy, onClose, onRenewSuccess
     <div className="modal-overlay">
       <div className="modal-content">
         <h2>Renew Policy: {policy.customer_name}</h2>
-        <p>Vehicle: {policy.vehicle_no} ({policy.vehicle_type || 'Car'})</p>
+        <p>Vehicle: {policy.vehicle_no} ({policy.vehicle_type})</p>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>New Insurance Company:</label>
-            <input 
-              type="text" 
-              name="insurance_company" 
-              value={formData.insurance_company} 
-              onChange={handleChange} 
-              required 
-            />
+            <input type="text" name="insurance_company" value={formData.insurance_company} onChange={handleChange} required />
           </div>
           <div className="form-group">
             <label>New Issue Date (DD/MM/YYYY):</label>
-            <input 
-              type="text" 
-              name="issue_date" 
-              value={formData.issue_date} 
-              onChange={handleChange} 
-              placeholder="DD/MM/YYYY"
-              maxLength={10}
-              required 
-            />
+            <input type="text" name="issue_date" value={formData.issue_date} onChange={handleChange} placeholder="DD/MM/YYYY" maxLength={10} required />
           </div>
           <div className="form-group">
             <label>New Price:</label>
-            <input 
-              type="number" 
-              name="price" 
-              value={formData.price} 
-              onChange={handleChange} 
-              required 
-              placeholder="Enter new price"
-            />
+            <input type="number" name="price" value={formData.price} onChange={handleChange} required placeholder="Enter new price" />
           </div>
           <div className="modal-actions">
             <button type="submit" className="submit-renew-btn">Confirm Renewal</button>
