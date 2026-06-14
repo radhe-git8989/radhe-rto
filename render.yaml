@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: radhe-rto-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///database.db # Temporary local storage, change to Supabase for permanent
+    rootDir: backend
+
+  - type: web
+    name: radhe-rto-frontend
+    env: static
+    buildCommand: npm run build
+    outputDir: dist
+    rootDir: frontend
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: radhe-rto-backend
+          type: web
+          property: host
