@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../api';
 
 interface Policy {
   sr_no: number;
@@ -81,7 +82,7 @@ const RenewModal: React.FC<RenewModalProps> = ({ policy, onClose, onRenewSuccess
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/policies/${policy.sr_no}`, {
+      const response = await fetch(`${API_BASE_URL}/api/policies/${policy.sr_no}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -104,6 +105,37 @@ const RenewModal: React.FC<RenewModalProps> = ({ policy, onClose, onRenewSuccess
       alert('Failed to renew policy');
     }
   };
+
+  return (
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <h2>Renew Policy: {policy.customer_name}</h2>
+        <p>Vehicle: {policy.vehicle_no} ({policy.vehicle_type})</p>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>New Insurance Company:</label>
+            <input type="text" name="insurance_company" value={formData.insurance_company} onChange={handleChange} required />
+          </div>
+          <div className="form-group">
+            <label>New Issue Date (DD/MM/YYYY):</label>
+            <input type="text" name="issue_date" value={formData.issue_date} onChange={handleChange} placeholder="DD/MM/YYYY" maxLength={10} required />
+          </div>
+          <div className="form-group">
+            <label>New Price:</label>
+            <input type="number" name="price" value={formData.price} onChange={handleChange} required placeholder="Enter new price" />
+          </div>
+          <div className="modal-actions">
+            <button type="submit" className="submit-renew-btn">Confirm Renewal</button>
+            <button type="button" className="cancel-btn" onClick={onClose}>Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default RenewModal;
+
 
   return (
     <div className="modal-overlay">

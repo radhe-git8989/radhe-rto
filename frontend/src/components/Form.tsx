@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../api';
 
 interface Policy {
   sr_no: number;
@@ -120,8 +121,8 @@ const Form: React.FC<FormProps> = ({ onPolicyAdded, editPolicy, onCancelEdit, is
 
     try {
       const url = editPolicy 
-        ? `http://localhost:5000/api/policies/${editPolicy.sr_no}`
-        : 'http://localhost:5000/api/policies';
+        ? `${API_BASE_URL}/api/policies/${editPolicy.sr_no}`
+        : `${API_BASE_URL}/api/policies`;
       
       const method = editPolicy ? 'PUT' : 'POST';
 
@@ -199,3 +200,4 @@ const Form: React.FC<FormProps> = ({ onPolicyAdded, editPolicy, onCancelEdit, is
 };
 
 export default Form;
+

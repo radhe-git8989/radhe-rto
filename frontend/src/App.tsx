@@ -6,6 +6,8 @@ import Notification from './components/Notification';
 import RenewModal from './components/RenewModal';
 import Login from './components/Login';
 
+import API_BASE_URL from './api';
+
 interface Policy {
   sr_no: number;
   customer_name: string;
@@ -28,7 +30,7 @@ function App() {
 
   const fetchPolicies = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/policies');
+      const response = await fetch(`${API_BASE_URL}/api/policies`);
       const data = await response.json();
       setPolicies(data);
       setLoading(false);
@@ -43,7 +45,7 @@ function App() {
   const handleDelete = async (sr_no: number) => {
     if (window.confirm('Are you sure you want to delete this policy?')) {
       try {
-        const response = await fetch(`http://localhost:5000/api/policies/${sr_no}`, {
+        const response = await fetch(`${API_BASE_URL}/api/policies/${sr_no}`, {
           method: 'DELETE',
         });
         if (response.ok) {
