@@ -6,17 +6,17 @@ services:
     startCommand: gunicorn app:app
     envVars:
       - key: DATABASE_URL
-        value: sqlite:///database.db # Temporary local storage, change to Supabase for permanent
+        value: sqlite:///database.db
     rootDir: backend
 
-  - type: web
+  - type: static
     name: radhe-rto-frontend
-    env: static
-    buildCommand: cd frontend && npm install && npm run build
-    outputDir: frontend/dist
+    buildCommand: npm install && npm run build
+    outputDir: dist
+    rootDir: frontend
     envVars:
       - key: VITE_API_URL
         fromService:
           name: radhe-rto-backend
           type: web
-          property: host
+          property: url
