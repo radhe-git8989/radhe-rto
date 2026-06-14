@@ -78,6 +78,9 @@ function App() {
   return (
     <div className="app-container">
       <header className="app-header">
+        <div className="header-logo">
+          <img src="/logo-no-bg.png" alt="Radhe RTO Logo" />
+        </div>
         <h1>RADHE RTO</h1>
         <div className="header-user-actions">
           <span className="user-info">User: <strong>ravi</strong></span>
