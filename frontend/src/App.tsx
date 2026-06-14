@@ -79,7 +79,7 @@ function App() {
     <div className="app-container">
       <header className="app-header">
         <div className="header-logo">
-          <img src="/logo.png" alt="Radhe RTO Logo" />
+          <img src="/logo2.png" alt="Radhe RTO Logo" />
         </div>
         <h1>RADHE RTO</h1>
         <div className="header-user-actions">

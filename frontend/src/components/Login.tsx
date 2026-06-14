@@ -23,7 +23,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     <div className="login-screen">
       <div className="login-box">
         <div className="login-logo">
-          <img src="/logo.png" alt="Radhe RTO Logo" />
+          <img src="/logo2.png" alt="Radhe RTO Logo" />
         </div>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
