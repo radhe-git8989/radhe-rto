@@ -12,9 +12,8 @@ services:
   - type: web
     name: radhe-rto-frontend
     env: static
-    buildCommand: npm install && npm run build
+    buildCommand: cd frontend && npm install && npm run build
     outputDir: frontend/dist
-    rootDir: frontend
     envVars:
       - key: VITE_API_URL
         fromService:
